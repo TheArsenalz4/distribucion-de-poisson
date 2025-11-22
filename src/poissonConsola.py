@@ -2,7 +2,7 @@ import numpy
 import math
 
 
-def calcularProbabilidad(mu, x):
+def calcularProbabilidad(mu:float, x:int) -> float:
   """
   Función que calcula la probabilidad de Poisson
   mu: media o valor esperado de X. Debe ser mayor a 0
@@ -38,23 +38,28 @@ def calcular_probabilidad_por_tipo(mu, x, opcion):
   probabilidad = 0.0
 
   if opcion == 1:
+      # P(X = x) 
       probabilidad = calcularProbabilidad(mu, x)
   elif opcion == 2:
+      # P(X < x)
       for i in range(0, x):
           probabilidad += calcularProbabilidad(mu, i)
   elif opcion == 3:
+      # P(X ≤ x)
       for i in range(0, x + 1):
           probabilidad += calcularProbabilidad(mu, i)
   elif opcion == 4:
+      # P(X > x) = 1 - P(X ≤ x)
       for i in range(0, x + 1):
           probabilidad += calcularProbabilidad(mu, i)
       probabilidad = 1 - probabilidad
   elif opcion == 5:
+      # P(X ≥ x) = 1 - P(X < x)
       for i in range(0, x):
           probabilidad += calcularProbabilidad(mu, i)
       probabilidad = 1 - probabilidad
   else:
-      raise ValueError("Opción de cálculo desconocida")
+      raise ValueError("Opción de cálculo invalida")
 
   return probabilidad
 
@@ -79,5 +84,5 @@ def poisson(media, ocurrencias):
 
   print(f"La probabilidad {tipo_calculo[opcion]}: {(probabilidad * 100):.2f}%")
 
-poisson(media=8, ocurrencias=10)
+poisson(media=8, ocurrencias=5)
 
